@@ -5,7 +5,8 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "3.0.0"
+    "react-scripts": "3.0.0",
+    "scratch-vm": "^0.2.0-prerelease.20190422163822"
   },
   "scripts": {
     "start": "react-scripts start",
