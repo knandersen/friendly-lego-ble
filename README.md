@@ -6,6 +6,8 @@
 4. Turn on any LEGO Hub supporting BLE (except WeDo 2.0)
 5. The app should connect to the hub automatically 
 
+The BLE stuff happens in [https://github.com/knandersen/friendly-lego-ble/blob/master/src/Connector.js](https://github.com/knandersen/friendly-lego-ble/blob/master/src/Connector.js)
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
