@@ -8671,15 +8671,15 @@ scratch-sb1-converter@0.2.7:
     minilog "3.1.0"
     text-encoding "^0.7.0"
 
-scratch-translate-extension-languages@0.0.20181205140428:
-  version "0.0.20181205140428"
-  resolved "https://registry.yarnpkg.com/scratch-translate-extension-languages/-/scratch-translate-extension-languages-0.0.20181205140428.tgz#27746e4d628810c7b35f7e8caa5963be5349a8f9"
-  integrity sha512-vNE8LSIrJl5cCCS1yrR6wivtFhuJmHFhbZnTrkt/E3BfyqMBJgpqJTtYfi+up1sorc7AixhpHTARE6/t3D//MA==
+scratch-translate-extension-languages@0.0.20190416132834:
+  version "0.0.20190416132834"
+  resolved "https://registry.yarnpkg.com/scratch-translate-extension-languages/-/scratch-translate-extension-languages-0.0.20190416132834.tgz#988eb4a6ee7abcaec8077ad8519a7b4236242d67"
+  integrity sha512-mRDRBqbwf52DSbR9tJLRw2/MIUoFncNaqTKkVjdDJcIRm5niTtKtFDn2BlyQunAAkUVdswncS0t1wpf155lQGw==
 
-scratch-vm@^0.2.0-prerelease.20190422163822:
-  version "0.2.0-prerelease.20190422163822"
-  resolved "https://registry.yarnpkg.com/scratch-vm/-/scratch-vm-0.2.0-prerelease.20190422163822.tgz#4214a1b6b84115ad0e9c619f9d765835aeb91334"
-  integrity sha512-dqg+EmpkWDgmO3yqLcklMPUbLFYVQ4MFq412RZmwoxy5dL1l9s6ghkKVgp5UNzDbOTu9zMFnyE+WIjY0dl0qpA==
+scratch-vm@^0.2.0-prerelease.20190722173823:
+  version "0.2.0-prerelease.20190722173823"
+  resolved "https://registry.yarnpkg.com/scratch-vm/-/scratch-vm-0.2.0-prerelease.20190722173823.tgz#50b05b597eb3b3d557e0d1d21ba82204de909737"
+  integrity sha512-PPE0OR9tZixZ9ic/nN3lWIg6pRA/BJ88OiY7hpp9BWMbfdEUvQXO81nVlqMI808c7MVkYvens7Mr/hFf+qpIOw==
   dependencies:
     "@vernier/godirect" "1.5.0"
     arraybuffer-loader "^1.0.6"
@@ -8696,7 +8696,7 @@ scratch-vm@^0.2.0-prerelease.20190422163822:
     nets "3.2.0"
     scratch-parser "5.0.0"
     scratch-sb1-converter "0.2.7"
-    scratch-translate-extension-languages "0.0.20181205140428"
+    scratch-translate-extension-languages "0.0.20190416132834"
     socket.io-client "2.0.4"
     text-encoding "0.7.0"
     worker-loader "^1.1.1"
