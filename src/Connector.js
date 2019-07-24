@@ -1,39 +1,31 @@
 import BLE from 'scratch-vm/src/io/ble';
+import Runtime from 'scratch-vm/src/engine/runtime';
 import BaseUtil from 'scratch-vm/src/util/base64-util';
-import React from 'react';
 
-const LBLE = {
-    service: '00001623-1212-efde-1623-785feabcd123',
-    characteristic: '00001624-1212-efde-1623-785feabcd123'
-}
+const extensionId = 'myExtension';
 
-class Connector extends React.Component {
+class Connector {
 
-    constructor() {
-        super();
-
+    constructor(serviceUuid,characteristicUuid) {
+        this.serviceUuid = serviceUuid;
+        this.characteristicUuid = characteristicUuid;
+        this.runtime = new Runtime();
+        this.runtime.registerPeripheralExtension(extensionId,this)
         const options = {
             filters: [{
-                services: [LBLE.service]
+                services: [this.serviceUuid]
             }],
             optionalServices: []
         };  
-        this.ble = new BLE(this,'myExtension', options, this._onConnect.bind(this), this.disconnect.bind(this));
+        this.ble = new BLE(this.runtime,extensionId, options, this._onConnect.bind(this), this.disconnect.bind(this));
+        this.runtime.addListener("PERIPHERAL_LIST_UPDATE",this.onDiscover.bind(this));
     }
 
-    // This is to catch the emit that will be called by the runtime parameter specified in the BLE-init.
-    emit(v,e){
-        console.log(e);
-        if(e && !e.message) {
-            this.scan(e)
-        }
-    }
-
-    scan(e) {
+    onDiscover(e) {
         for (var p in e) {
             p = e[p]
             if(this.ble && p.peripheralId) {
-                    this.ble.connectPeripheral(p.peripheralId);
+                this.ble.connectPeripheral(p.peripheralId);
             }
             break;
         }
@@ -42,15 +34,14 @@ class Connector extends React.Component {
     _onConnect() {
         if(this.ble) {
             this.ble.startNotifications(
-                LBLE.service,
-                LBLE.characteristic,
+                this.serviceUuid,
+                this.characteristicUuid,
                 this._onMessage
             );
             // Set LED to pink
-            this.ble.write(
-                LBLE.service,
-                LBLE.characteristic,
-                BaseUtil.uint8ArrayToBase64([0x8,0x00, 0x81, 50, 0x00, 0x51, 0, 2]),'base64', true)
+            setTimeout(() => {
+                this.send([8, 0, 129, 50, 17, 81, 0, 2])
+            }, 500);
         }
     }
 
@@ -62,8 +53,11 @@ class Connector extends React.Component {
         console.log("disconnect")
     }
 
-    render() {
-        return null;
+    send(payload) {
+        this.ble.write(
+            this.serviceUuid,
+            this.characteristicUuid,
+            BaseUtil.uint8ArrayToBase64(payload),'base64', true);
     }
 }
 
