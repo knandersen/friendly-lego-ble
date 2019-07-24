@@ -38,10 +38,6 @@ class Connector {
                 this.characteristicUuid,
                 this._onMessage
             );
-            // Set LED to pink
-            setTimeout(() => {
-                this.send([8, 0, 129, 50, 17, 81, 0, 2])
-            }, 500);
         }
     }
 
@@ -54,10 +50,11 @@ class Connector {
     }
 
     send(payload) {
-        this.ble.write(
+        return this.ble._connected ? this.ble.write(
             this.serviceUuid,
             this.characteristicUuid,
-            BaseUtil.uint8ArrayToBase64(payload),'base64', true);
+            BaseUtil.uint8ArrayToBase64(payload),'base64', true) : false;
+        
     }
 }
 
