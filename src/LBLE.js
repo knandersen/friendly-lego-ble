@@ -53,9 +53,10 @@ export default class LBLE {
         TILT_EXTERNAL: 0x22,
         MOTION_SENSOR: 0x23,
         COLOR: 0x25,
-        MOTOREXT: 0x26,
-        MOTORINT: 0x27,
-        TILT: 0x28
+        MOTOR_EXTERNAL: 0x26,
+        MOTOR_INTERNAL: 0x27,
+        TILT: 0x28,
+        reverseMap: {}
     };
 
     /**
@@ -113,6 +114,20 @@ export default class LBLE {
         [this.Color.YELLOW]: 7,
         [this.Color.WHITE]: 10,
         [this.Color.BLACK]: 0
+    };
+
+    static LedColor = {
+        OFF: 0,
+        PINK: 1,
+        VIOLET: 2,
+        BLUE: 3,
+        LIGHT_BLUE: 4,
+        LIGHT_GREEN: 5,
+        GREEN:6,
+        YELLOW:7,
+        ORANGE:8,
+        RED:9,
+        WHITE:10
     };
 
     /**
@@ -298,4 +313,34 @@ export default class LBLE {
         DETACHED: 0x00,
         ATTACHED_VIRTUAL: 0x02
     }
+    
+    static numberToInt32Array = function (number) {
+        const buffer = new ArrayBuffer(4);
+        const dataview = new DataView(buffer);
+        dataview.setInt32(0, number);
+        return [
+            dataview.getInt8(3),
+            dataview.getInt8(2),
+            dataview.getInt8(1),
+            dataview.getInt8(0)
+        ];
+    };
+
+    static objectFlip(obj) {
+        const ret = {};
+        Object.keys(obj).forEach((key) => {
+          ret[obj[key]] = key;
+        });
+        return ret;
+      }
+
+    
+    static sconstructor() {
+        this.IO.reverseMap = this.objectFlip(this.IO)
+        this.IOEvent.reverseMap = this.objectFlip(this.IOEvent)
+        this.Port.reverseMap = this.objectFlip(this.Port)
+        this.PortFeedback.reverseMap = this.objectFlip(this.PortFeedback)
+        this.LedColor.reverseMap = this.objectFlip(this.LedColor)
+    }
 }
+LBLE.sconstructor()

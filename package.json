@@ -6,6 +6,7 @@
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
     "react": "^16.8.6",
+    "react-color": "^2.17.3",
     "react-dom": "^16.8.6",
     "react-scripts": "3.0.1",
     "scratch-vm": "^0.2.0-prerelease.20190722173823"

@@ -1,17 +1,31 @@
-.Card {
+.CommandCenter {
+    width: 45%;
+    height:100%;
     display: flex;
+    align-items: flex-start;
+    align-content: flex-start;
     flex-wrap: wrap;
+    border-radius: 1em;
+    background-color: #ddd;
+    margin: 2em;
+    padding:0.7em 1em;
+}
+
+.CommandCenter-card {
+    align-self: flex-start;
     border-radius: 1em;
     background-color: #ddd;
     margin-bottom:1em;
     padding:0.7em 1em;
+    width:100%;
+
 }
 
-.Card-link {
+.CommandCenter-link {
   color: #61dafb;
 }
 
-.Card-code {
+.CommandCenter-code {
     color: #888;
     font-family: 'Courier New', Courier, monospace;
     font-size: 0.7em;
@@ -22,7 +36,7 @@
 
 }
 
-.Card-timestamp {
+.CommandCenter-timestamp {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 0.4em;
     align-self: flex-start;
@@ -33,24 +47,20 @@
     height:100%;
 }
 
-.Card-title {
+.CommandCenter-title {
     font-family: Helvetica, Arial, sans-serif;
     font-size: 1.4em;
     font-weight: bold;
 }
 
-.Card-phrase {
-    font-family: Helvetica, Arial, sans-serif;
-    font-size: 0.8em;
-}
-
-.Card-header {
-    display:flex;
+.CommandCenter-header {
+    display:flex;font-family: Helvetica, Arial, sans-serif;
+    font-size: 2em;
+    font-weight: bold;
     width:100%;
 }
 
-.Card-footer {
-    margin-top:10px;
+.CommandCenter-footer {
     display:flex;
     align-self: flex-end;
     width:100%;

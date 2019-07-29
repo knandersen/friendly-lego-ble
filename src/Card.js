@@ -5,13 +5,6 @@ import moment from 'moment';
 
 class Card extends React.Component {
 
-  constructor() {
-    super();
-    this.state = {
-    }
-
-  }
-
   render() {
     var phrase = '?'
     switch(this.props.payload[2]) {
@@ -19,14 +12,26 @@ class Card extends React.Component {
         case LBLE.MessageType.HUB_ALERTS:
             phrase = 'Hub'
             break;
-        case LBLE.MessageType.HUB_ATTACHED_IO:
-            phrase = ``
+        case LBLE.MessageType.HUB_ATTACHED_IO: {
+            let port = this.props.payload[3],
+                  event = this.props.payload[4],
+                  io = this.props.payload[5];
+            phrase = `${LBLE.IO.reverseMap[io]} ${LBLE.IOEvent.reverseMap[event]} on port ${LBLE.Port.reverseMap[port] ? LBLE.Port.reverseMap[port]:port}`;
+            break;
+        }
         case LBLE.MessageType.PORT_INFORMATION:
             phrase = 'Port'
             break;
+        case LBLE.MessageType.PORT_FEEDBACK:
+            let port = this.props.payload[3],
+            feedback = this.props.payload[4];
+            phrase = `Command ${feedback} on port ${LBLE.Port.reverseMap[port] ? LBLE.Port.reverseMap[port]:port}`
+            break;
         case LBLE.MessageType.ERROR:
             phrase = 'Error'
+            break;
         default:
+          console.log(this.props.payload)
     }
 
     const hexStrings = Array.prototype.map.call(this.props.payload, function(n) {
@@ -37,7 +42,7 @@ class Card extends React.Component {
         {/*<div className="Card-header">
             <div className="Card-title">{phrase}</div>
         </div>*/}
-        <div className="Card-content">
+        <div className="Card-phrase">
             {phrase}
         </div>
         <div className="Card-footer">
