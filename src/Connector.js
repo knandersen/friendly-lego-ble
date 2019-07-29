@@ -1,14 +1,14 @@
 import BLE from 'scratch-vm/src/io/ble';
 import Runtime from 'scratch-vm/src/engine/runtime';
 import BaseUtil from 'scratch-vm/src/util/base64-util';
-
 const extensionId = 'myExtension';
 
 class Connector {
 
-    constructor(serviceUuid,characteristicUuid) {
+    constructor(serviceUuid, characteristicUuid, onBleMessage) {
         this.serviceUuid = serviceUuid;
         this.characteristicUuid = characteristicUuid;
+        this.onBleMessage = onBleMessage;
         this.runtime = new Runtime();
         this.runtime.registerPeripheralExtension(extensionId,this)
         const options = {
@@ -16,9 +16,10 @@ class Connector {
                 services: [this.serviceUuid]
             }],
             optionalServices: []
-        };  
+        };
         this.ble = new BLE(this.runtime,extensionId, options, this._onConnect.bind(this), this.disconnect.bind(this));
         this.runtime.addListener("PERIPHERAL_LIST_UPDATE",this.onDiscover.bind(this));
+        console.log("Set up LEGO Connector")
     }
 
     onDiscover(e) {
@@ -36,15 +37,10 @@ class Connector {
             this.ble.startNotifications(
                 this.serviceUuid,
                 this.characteristicUuid,
-                this._onMessage
+                this.onBleMessage
             );
         }
     }
-
-    _onMessage(base64) {
-        console.log(BaseUtil.base64ToUint8Array(base64));
-    }
-
     disconnect() {
         console.log("disconnect")
     }
