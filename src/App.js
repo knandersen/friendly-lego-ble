@@ -5,6 +5,7 @@ import BaseUtil from 'scratch-vm/src/util/base64-util';
 import LBLE from './LBLE';
 import Card from './Card';
 import CommandCenter from './CommandCenter';
+import uuidv1 from 'uuid/v1';
 
 class App extends React.Component {
 
@@ -39,7 +40,7 @@ class App extends React.Component {
 
   render() {
     const cards = this.state.messages.map(m => {
-            return <Card {...m}></Card>;
+            return <Card key={uuidv1()} {...m}></Card>;
     });
     const sortedCards = cards.sort((a,b) => {
       return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
@@ -51,9 +52,7 @@ class App extends React.Component {
           {sortedCards}
           {/*<Card timestamp={Date.now()} payload={[8, 0, 129, 50, 17, 81, 0, 2]}></Card>*/}
         </div>
-        <div className="CommandCenterContainer">
-          <CommandCenter ioSend={this.onCommand.bind(this)} />
-        </div>
+        <CommandCenter ioSend={this.onCommand.bind(this)} />
       </div>
     );
   }

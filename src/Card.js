@@ -2,6 +2,7 @@ import React from 'react';
 import './Card.css';
 import LBLE from './LBLE';
 import moment from 'moment';
+import uuidv1 from 'uuid/v1';
 
 class Card extends React.Component {
 
@@ -38,7 +39,7 @@ class Card extends React.Component {
         return '0x' + LBLE.toHexString(n) + ' '
     })
     return (
-      <div key={moment(this.props.timestamp).format('x')} className="Card">
+      <div key={uuidv1()} className="Card">
         {/*<div className="Card-header">
             <div className="Card-title">{phrase}</div>
         </div>*/}

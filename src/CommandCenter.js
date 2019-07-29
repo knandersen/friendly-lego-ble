@@ -2,6 +2,8 @@ import React from 'react';
 import './CommandCenter.css';
 import LBLE from './LBLE';
 import { SketchPicker } from 'react-color';
+import Slider from 'rc-slider'; 
+import 'rc-slider/assets/index.css';
 
 const HubID = 0x00;
 
@@ -25,10 +27,8 @@ class CommandCenter extends React.Component {
     }
 
     handleChangeLedRgb(c) {
-        const color = { r: c.rgb.r, g: c.rgb.g, b: c.rgb.b};
-        console.log(color)
         this.setState({
-            ledRgb: color, 
+            ledRgb: c.rgb, 
             background: c.hex
         });
     }
@@ -74,24 +74,48 @@ class CommandCenter extends React.Component {
         cmd.unshift(cmd.length);
         this.props.ioSend(cmd);
     }
+
+    sendMotorCommand() {
+
+    }
     
 
   render() {
     const ledOptions = Object.keys(LBLE.LedColor).map((k,i) => {
-        return <option value={i}>({i}) {k}</option>;
+        return <option value={i} key={i}>({i}) {k}</option>;
     });
     ledOptions.pop(); // Remove reverseMap
 
+    const portOptions = Object.keys(LBLE.Port).map((k,i) => {
+        return <option value={i} key={i}>({i}) {k}</option>;
+    });
+    portOptions.pop(); // Remove reverseMap
+
     return (
-        <div className="CommandCenter-card">
-            <div className="CommandCenter-header">LED</div>
-            <select onChange={this.handleChangeLedIndex} value={this.state.ledIndex}>
-                {ledOptions}
-            </select>
-            <button onClick={this.changeLedByIndex.bind(this)}>set LED by index</button>
-            <br /><br />
-            <SketchPicker disableAlpha={true} presetColors={[]} color={this.state.background} onChangeComplete={this.handleChangeLedRgb} />
-            <button onClick={this.changeLedByRgb.bind(this)}>set LED by RGB</button>
+        <div className="CommandCenterContainer">
+            <div className="CommandCenter-card">
+                <div className="CommandCenter-header">LED</div>
+                <select onChange={this.handleChangeLedIndex} value={this.state.ledIndex}>
+                    {ledOptions}
+                </select>
+                <button onClick={this.changeLedByIndex.bind(this)}>set LED by index</button>
+                <br /><br />
+                <SketchPicker disableAlpha={true} presetColors={[]} color={this.state.background} onChangeComplete={this.handleChangeLedRgb} />
+                <button onClick={this.changeLedByRgb.bind(this)}>set LED by RGB</button>
+            </div>
+            <div className="CommandCenter-card">
+                <div className="CommandCenter-header">Motor (WIP)</div>
+                Port: <select onChange={this.handleChangePort} value={this.state.portMotor}>
+                    {portOptions}
+                </select><br />
+                Command type: 
+                <br />
+                Speed: <div><Slider min={0} max={100} defaultValue={50}/></div> <br />
+                MaxPower: <div><Slider min={0} max={100} defaultValue={100}/></div> <br />
+                MaxPower: <br />
+
+                <button onClick={this.sendMotorCommand.bind(this)}>Send motor command</button>
+            </div>
         </div>
     );
   }
