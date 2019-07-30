@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/friendly-lego-ble/static/css/main.fe059dbe.chunk.css",
+    "main.js": "/friendly-lego-ble/static/js/main.13277508.chunk.js",
+    "main.js.map": "/friendly-lego-ble/static/js/main.13277508.chunk.js.map",
+    "runtime~main.js": "/friendly-lego-ble/static/js/runtime~main.761c3a04.js",
+    "runtime~main.js.map": "/friendly-lego-ble/static/js/runtime~main.761c3a04.js.map",
+    "static/css/2.509658c0.chunk.css": "/friendly-lego-ble/static/css/2.509658c0.chunk.css",
+    "static/js/2.0e7aa6d4.chunk.js": "/friendly-lego-ble/static/js/2.0e7aa6d4.chunk.js",
+    "static/js/2.0e7aa6d4.chunk.js.map": "/friendly-lego-ble/static/js/2.0e7aa6d4.chunk.js.map",
+    "index.html": "/friendly-lego-ble/index.html",
+    "precache-manifest.814ae8320122aac9cb301433ba688223.js": "/friendly-lego-ble/precache-manifest.814ae8320122aac9cb301433ba688223.js",
+    "service-worker.js": "/friendly-lego-ble/service-worker.js",
+    "static/css/2.509658c0.chunk.css.map": "/friendly-lego-ble/static/css/2.509658c0.chunk.css.map",
+    "static/css/main.fe059dbe.chunk.css.map": "/friendly-lego-ble/static/css/main.fe059dbe.chunk.css.map"
+  }
+}
