@@ -2,7 +2,7 @@
 
 https://knandersen.github.io/friendly-lego-ble/ (Make sure you have the latest version of Scratch Link running)
 
-Turn on any LEGO Hub featuring BLE 4.0+ (except WeDo 2.0)
+Turn on any LEGO Hub featuring BLE 4.0+ (except WeDo 2.0). Your hub should be detected and connected to automatically.
 
 # How to use
 
