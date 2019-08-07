@@ -1,6 +1,6 @@
 # Demo
 
-https://knandersen.github.io/friendly-lego-ble/
+https://knandersen.github.io/friendly-lego-ble/ (Make sure you have the latest version of Scratch Link running)
 
 # How to use
 
