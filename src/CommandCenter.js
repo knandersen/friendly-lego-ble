@@ -2,8 +2,20 @@ import React from 'react';
 import './CommandCenter.css';
 import LBLE from './LBLE';
 import { SketchPicker } from 'react-color';
-import Slider from 'rc-slider'; 
-import 'rc-slider/assets/index.css';
+import Container from '@material-ui/core/Container';
+import ExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
+import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
+import Typography from '@material-ui/core/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import Button from '@material-ui/core/Button';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
+import MenuItem from '@material-ui/core/MenuItem';
+import Card from '@material-ui/core/Card';
+import Slider from '@material-ui/core/Slider';
+import Grid from '@material-ui/core/Grid';
 
 const HubID = 0x00;
 
@@ -14,6 +26,7 @@ class CommandCenter extends React.Component {
 
         this.state = {
             ledIndex: 0,
+            portMotor:0,
             ledRgb: {r:0,g:0,b:0},
             background:'#fff'
         }
@@ -82,41 +95,72 @@ class CommandCenter extends React.Component {
 
   render() {
     const ledOptions = Object.keys(LBLE.LedColor).map((k,i) => {
-        return <option value={i} key={i}>({i}) {k}</option>;
+        return <MenuItem value={i} key={i}>({i}) {k}</MenuItem>;
     });
     ledOptions.pop(); // Remove reverseMap
 
     const portOptions = Object.keys(LBLE.Port).map((k,i) => {
-        return <option value={i} key={i}>({i}) {k}</option>;
+        return <MenuItem value={i} key={i}>({i}) {k}</MenuItem>;
     });
     portOptions.pop(); // Remove reverseMap
 
     return (
-        <div className="CommandCenterContainer">
-            <div className="CommandCenter-card">
-                <div className="CommandCenter-header">LED</div>
-                <select onChange={this.handleChangeLedIndex} value={this.state.ledIndex}>
-                    {ledOptions}
-                </select>
-                <button onClick={this.changeLedByIndex.bind(this)}>set LED by index</button>
-                <br /><br />
-                <SketchPicker disableAlpha={true} presetColors={[]} color={this.state.background} onChangeComplete={this.handleChangeLedRgb} />
-                <button onClick={this.changeLedByRgb.bind(this)}>set LED by RGB</button>
-            </div>
-            <div className="CommandCenter-card">
-                <div className="CommandCenter-header">Motor (WIP)</div>
-                Port: <select onChange={this.handleChangePort} value={this.state.portMotor}>
-                    {portOptions}
-                </select><br />
-                Command type: 
-                <br />
-                Speed: <div><Slider min={0} max={100} defaultValue={50}/></div> <br />
-                MaxPower: <div><Slider min={0} max={100} defaultValue={100}/></div> <br />
-                MaxPower: <br />
+        <Container>
+        <ExpansionPanel expanded>
+            <ExpansionPanelSummary 
+                expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+                <Typography variant="h5">LED</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+                <FormControl>
+                    <Select onChange={this.handleChangeLedIndex} value={this.state.ledIndex}>
+                        {ledOptions}
+                    </Select><Button variant="contained" color="secondary" onClick={this.changeLedByIndex.bind(this)}>set LED by index</Button>
+                    <br /><br />
+                    <SketchPicker disableAlpha={true} presetColors={[]} color={this.state.background} onChangeComplete={this.handleChangeLedRgb} />
+                    <Button variant="contained" color="secondary" onClick={this.changeLedByRgb.bind(this)}>set LED by RGB</Button>
+                </FormControl>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
+        <ExpansionPanel expanded>
+            <ExpansionPanelSummary 
+                expandIcon={<ExpandMoreIcon />} aria-controls="panel2a-content" id="panel2a-header">  
+                <Typography variant="h5">Motor</Typography>
+            </ExpansionPanelSummary>   
+            <ExpansionPanelDetails>
+                <Grid container>
+                    <Grid item xs={4}>
+                        Port:
+                    </Grid>
+                    <Grid item xs={8}>
+                        <Select onChange={this.handleChangePort} value={this.state.portMotor}>{portOptions}</Select>
+                    </Grid>
+                    <Grid item xs={4}>Command type:</Grid>
+                    <Grid item xs={8}></Grid>
+                    <Grid item xs={4}>Speed:</Grid>
+                    <Grid item xs={8}><Slider defaultValue={50}
+                                    aria-labelledby="discrete-slider"
+                                    valueLabelDisplay="auto"
+                                    step={1}
+                                    marks
+                                    min={0}
+                                    max={100}/></Grid>
+                    <Grid item xs={4}>MaxPower:</Grid>
+                    <Grid item xs={8}><Slider defaultValue={100}
+                                    aria-labelledby="discrete-slider"
+                                    valueLabelDisplay="auto"
+                                    step={1}
+                                    marks
+                                    min={0}
+                                    max={100}
+                                    color="secondary"/>
+                    </Grid>
+                    <Grid item xs={12}><Button variant="contained" color="secondary" onClick={this.sendMotorCommand.bind(this)}>Start motor with speed</Button></Grid>
 
-                <button onClick={this.sendMotorCommand.bind(this)}>Send motor command</button>
-            </div>
-        </div>
+                </Grid>
+            </ExpansionPanelDetails>
+        </ExpansionPanel>
+        </Container>
     );
   }
 }

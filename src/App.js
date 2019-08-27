@@ -3,9 +3,11 @@ import './App.css';
 import Connector from './Connector';
 import BaseUtil from 'scratch-vm/src/util/base64-util';
 import LBLE from './LBLE';
-import Card from './Card';
+import Message from './Message';
 import CommandCenter from './CommandCenter';
 import uuidv1 from 'uuid/v1';
+import CssBaseline from '@material-ui/core/CssBaseline'
+import Typography from '@material-ui/core/Typography'
 
 class App extends React.Component {
 
@@ -40,7 +42,7 @@ class App extends React.Component {
 
   render() {
     const cards = this.state.messages.map(m => {
-            return <Card key={uuidv1()} {...m}></Card>;
+            return <Message key={uuidv1()} {...m}></Message>;
     });
     const sortedCards = cards.sort((a,b) => {
       return new Date(a.timestamp).getTime() - new Date(b.timestamp).getTime()
@@ -48,9 +50,12 @@ class App extends React.Component {
 
     return (
       <div className="App">
+        <CssBaseline />
         <div className="Cards">
+          <Typography variant="h5" gutterBottom>Messages</Typography>
           {sortedCards}
-          {/*<Card timestamp={Date.now()} payload={[8, 0, 129, 50, 17, 81, 0, 2]}></Card>*/}
+          {<Message timestamp={Date.now()} payload={[8, 0, 129, 50, 17, 81, 0, 2]} fromDevice={false}></Message>}
+          {<Message timestamp={Date.now()} payload={[9, 0, 129, 50, 17, 81, 0, 2, 50, 17, 81, 0, 4]} fromDevice={true}></Message>}
         </div>
         <CommandCenter ioSend={this.onCommand.bind(this)} />
       </div>
